@@ -11,7 +11,7 @@ class NetworkManager {
     static let shared = NetworkManager()
 
     private func createURLRequest(for endpoint: Endpoint) -> URLRequest? {
-        var urlComponents = URLComponents(string: endpoint.baseURL)
+        var urlComponents = URLComponents(string: endpoint.baseURL.rawValue)
         urlComponents?.path = endpoint.path
         urlComponents?.queryItems = endpoint.queryItem
         guard let url = urlComponents?.url else { return nil }
@@ -43,7 +43,7 @@ class NetworkManager {
         guard let request = createURLRequest(for: endpoint) else { return }
         urlSession(request: request, completion: completion)
     }
-
+    
     private func urlSession (request: URLRequest, completion: @escaping (Result<Data, Error>) -> Void) {
         URLSession.shared.dataTask(with: request) { data, response, error in
             if let response = response as? HTTPURLResponse {

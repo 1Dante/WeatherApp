@@ -7,31 +7,74 @@
 
 import Foundation
 
-struct WeatherModel: Codable {
-    let weather: [Weather]
-    let main: Main?
-    let wind: Wind?
-    let coord: Coord
-}
-
 struct Weather: Codable {
-    let description: String?
-    let icon: String?
+    let currentWeather: CurrentWeather
+    let hourly: [Hourly]
+    let daily: [Daily]
+
+    enum CodingKeys: String, CodingKey {
+        case currentWeather = "current"
+        case hourly
+        case daily
+    }
 }
 
-struct Main: Codable {
-    let temp: Double?
-    let feels_like: Double?
-    let pressure: Int?
-    let humidity: Int?
+struct CurrentWeather: Codable {
+    let date: Date
+    let temp: Double
+    let pressure: Int
+    let humidity: Int
+    let windSpeed: Double
+    let windDegree: Int
+    let weatherIcon: [WeatherIcon]
+
+    enum CodingKeys: String, CodingKey {
+        case date = "dt"
+        case temp
+        case pressure
+        case humidity
+        case windSpeed = "wind_speed"
+        case windDegree = "wind_deg"
+        case weatherIcon = "weather"
+    }
 }
 
-struct Wind: Codable {
-    let speed: Double
-    let deg: Int
+struct Hourly: Codable {
+    let date: Date
+    let temp: Double
+    let weatherIcon: [WeatherIcon]
+
+    enum CodingKeys: String, CodingKey {
+        case date = "dt"
+        case temp
+        case weatherIcon = "weather"
+    }
 }
 
-struct Coord: Codable {
-    let lon: Double
-    let lat: Double
+struct Daily: Codable {
+    let date: Date
+    let temp: Temp
+    let weatherIcon: [WeatherIcon]
+
+    enum CodingKeys: String, CodingKey {
+        case date = "dt"
+        case temp
+        case weatherIcon = "weather"
+    }
 }
+
+struct Temp: Codable {
+    let min: Double
+    let max: Double
+}
+
+
+struct WeatherIcon: Codable {
+    let id: Int
+    let main: String
+    let description: String
+    let icon: String
+}
+
+
+

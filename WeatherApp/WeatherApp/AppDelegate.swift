@@ -6,14 +6,17 @@
 //
 
 import UIKit
+import GoogleMaps
+import GooglePlaces
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        GMSServices.setMetalRendererEnabled(true)
+        GMSServices.provideAPIKey("AIzaSyCm44B78Cy1g9QgY0rolmMMCvC6Kiqa45c")
+        GMSPlacesClient.provideAPIKey("AIzaSyCm44B78Cy1g9QgY0rolmMMCvC6Kiqa45c")
         return true
     }
 
@@ -33,4 +36,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
 }
+
+
 
